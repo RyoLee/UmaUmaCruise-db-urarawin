@@ -38,20 +38,35 @@ def loadDB():
         choiceList = event['choiceList']
         p_event = {}
         opts = list()
-        if len(choiceList) > 3 :
+        count = len(choiceList)
+        if count == 1:
             continue
         for opt in choiceList:
+            skip_name = '選択肢なし'
+            opt_name = opt[0]
+            if skip_name == opt_name:
+                count -= 1
+            if count == 0:
+                opts = None
+                break
             effects = opt[1]
             effect_str = ''
             for effect in effects:
                 effect_str += effect+'\n'
             #    effect_str += trans(effect)+'\n'
             tmp = {}
-            tmp["Option"] = opt[0]
+            tmp["Option"] = opt_name
+            if 'G1：\n' in effect_str:
+                effect_str = effect_str.replace('G1：\n', 'G1：')
+            if 'G2~G3：\n' in effect_str:
+                effect_str = effect_str.replace('G2~G3：\n', 'G2~G3：')
             tmp["Effect"] = effect_str.rstrip("\n")
             opts.append(tmp)
-        p_event[name] = opts
-        raw_events[id] = p_event
+        if opts != None:
+            if len(opts) > 3:
+                opts = opts[0:2]
+            p_event[name] = opts
+            raw_events[id] = p_event
 
 
 def saveData():
