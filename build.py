@@ -42,9 +42,8 @@ def loadDB():
         if count == 1:
             continue
         for opt in choiceList:
-            skip_name = '選択肢なし'
             opt_name = opt[0]
-            if skip_name == opt_name:
+            if '選択肢なし' == opt_name or '選択肢無し' == opt_name:
                 count -= 1
             if count == 0:
                 opts = None
