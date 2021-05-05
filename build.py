@@ -6,7 +6,8 @@ import json
 
 raw_data = {}
 raw_events = {}
-trans_rule = {}
+#trans_rules = {}
+rules = {}
 data = {
     "Charactor": {
         "☆3": {},
@@ -24,9 +25,12 @@ data = {
 def loadDB():
     global raw_data
     global raw_events
-    global trans_rule
+    #global trans_rules
+    global rules
     # with open('./tmp/cn.json', 'r') as f:
     #    trans_rule = json.load(f)
+    with open('./rules.json', 'r') as f:
+        rules = json.load(f)
     with open('./tmp/db.json', 'r') as f:
         raw_data = json.load(f)
     events = raw_data['events']
@@ -43,23 +47,20 @@ def loadDB():
             continue
         for opt in choiceList:
             opt_name = opt[0]
-            if '選択肢なし' == opt_name or '選択肢無し' == opt_name:
-                count -= 1
-            if count == 0:
-                opts = None
-                break
             effects = opt[1]
             effect_str = ''
             for effect in effects:
                 effect_str += effect+'\n'
             #    effect_str += trans(effect)+'\n'
+            effect_str = cover(effect_str).rstrip("\n")
+            if '選択肢なし' == opt_name or '選択肢無し' == opt_name:
+                count -= 1
+            if count == 0:
+                opts = None
+                break
             tmp = {}
             tmp["Option"] = opt_name
-            if 'G1：\n' in effect_str:
-                effect_str = effect_str.replace('G1：\n', 'G1：')
-            if 'G2~G3：\n' in effect_str:
-                effect_str = effect_str.replace('G2~G3：\n', 'G2~G3：')
-            tmp["Effect"] = effect_str.rstrip("\n")
+            tmp["Effect"] = effect_str
             opts.append(tmp)
         if opts != None:
             if len(opts) > 3:
@@ -73,10 +74,16 @@ def saveData():
         json.dump(data, f, ensure_ascii=False)
 
 
-def trans(input):
+# def trans(input):
+#     output = input
+#     for k in trans_rule:
+#         output = output.replace(k, trans_rule[k])
+#     return output
+
+def cover(input):
     output = input
-    for k in trans_rule:
-        output = output.replace(k, trans_rule[k])
+    for k in rules:
+        output = output.replace(k, rules[k])
     return output
 
 
