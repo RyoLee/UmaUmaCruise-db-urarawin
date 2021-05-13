@@ -6,7 +6,7 @@ import json
 
 raw_data = {}
 raw_events = {}
-#trans_rules = {}
+trans_rules = {}
 rules = {}
 data = {
     "Charactor": {
@@ -25,10 +25,10 @@ data = {
 def loadDB():
     global raw_data
     global raw_events
-    #global trans_rules
+    global trans_rules
     global rules
-    # with open('./tmp/cn.json', 'r') as f:
-    #    trans_rule = json.load(f)
+    #with open('./tmp/cn.json', 'r') as f:
+    #    trans_rules = json.load(f)
     with open('./rules.json', 'r') as f:
         rules = json.load(f)
     with open('./tmp/db.json', 'r') as f:
@@ -63,8 +63,8 @@ def loadDB():
             tmp["Effect"] = effect_str
             opts.append(tmp)
         if opts != None:
-            if len(opts) > 3:
-                opts = opts[0:2]
+#            if len(opts) > 3:
+#                opts = opts[0:2]
             p_event[name] = opts
             raw_events[id] = p_event
 
@@ -74,11 +74,11 @@ def saveData():
         json.dump(data, f, ensure_ascii=False)
 
 
-# def trans(input):
-#     output = input
-#     for k in trans_rule:
-#         output = output.replace(k, trans_rule[k])
-#     return output
+def trans(input):
+    output = input
+    for k in trans_rules:
+        output = output.replace(k, trans_rules[k])
+    return output
 
 def cover(input):
     output = input
@@ -103,7 +103,7 @@ def build():
                 continue
             eventsList.append(raw_events[e_id])
         eventsJSON['Event'] = eventsList
-        data['Charactor'][p_rare[rare]]['【'+name+'】'+charaName] = eventsJSON
+        data['Charactor'][p_rare[rare]]['['+name+']'+charaName] = eventsJSON
     for s in supports:
         name = s['name']
         charaName = s['charaName']
