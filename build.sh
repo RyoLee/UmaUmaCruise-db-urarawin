@@ -10,4 +10,4 @@ count=$(diff UmaMusumeLibrary.json UmaMusumeLibrary.json.old |wc -l)
 if [ "0"x != "$count"x ];then
     date +%s > version
 fi
-rm UmaMusumeLibrary.json.old
+rm ./UmaMusumeLibrary.json.old
