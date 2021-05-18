@@ -12,9 +12,11 @@ if [ "$dbl"x = $odbl"x" ];then
     echo "[info] noupdate"
     exit 0
 fi
+git config --global user.email "516127941@qq.com"
+git config --global user.name "RyoLee"
 git pull
 sh ./build.sh
+echo "$odbl" > ./dbl
 git add ./*
 git commit -m "[autobuild] version:"$(cat version)
 git push
-echo "$odbl" > ./dbl
