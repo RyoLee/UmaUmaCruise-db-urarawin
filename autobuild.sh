@@ -9,7 +9,7 @@ if [ "$res"x = "x" ];then
 fi
 odbl=$(echo "$res"|awk '{print $2}')
 if [ "$dbl"x = $odbl"x" ];then
-    echo "[info] noupdate"
+    echo "[info] no update"
     exit 0
 fi
 git config --global user.email "516127941@qq.com"
