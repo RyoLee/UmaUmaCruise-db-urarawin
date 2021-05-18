@@ -14,6 +14,8 @@ if [ "$dbl"x = $odbl"x" ];then
 fi
 git config --global user.email "516127941@qq.com"
 git config --global user.name "RyoLee"
+git config --global https.proxy 'socks5://gw.lan:7891'
+git config --global https.proxy 'socks5://gw.lan:7891'
 git pull
 sh ./build.sh
 echo "$odbl" > ./dbl
