@@ -19,5 +19,5 @@ if [ "$dbl"x != $odbl"x" ];then
 else
     echo "[info] no update"
 fi
-git commit -m "[autobuild] version:"$(cat version)
+git commit -a -m "[autobuild] version:"$(cat version)
 git push
