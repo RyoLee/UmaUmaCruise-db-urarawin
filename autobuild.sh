@@ -2,8 +2,8 @@
 sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 apk add python3
 git config --global user.email "516127941@qq.com"
-git config --global https.proxy 'socks5://gw.lan:7891'
-git config --global https.proxy 'socks5://gw.lan:7891'
+git config --global https.proxy 'socks5://192.168.1.200:7891'
+git config --global https.proxy 'socks5://192.168.1.200:7891'
 git config --global user.name "RyoLee"
 git pull
 dbl=$(cat ./dbl)
