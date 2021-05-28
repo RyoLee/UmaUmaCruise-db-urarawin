@@ -17,6 +17,7 @@ odbl=$(echo "$res"|awk '{print $2}')
 if [ "$dbl"x != $odbl"x" ];then
     sh ./build.sh
     echo "$odbl" > ./dbl
+    curl -s https://purge.jsdelivr.net/gh/RyoLee/UmaUmaCruise-db-urarawin@master/UmaMusumeLibrary.json
 else
     echo "[info] no update"
 fi
