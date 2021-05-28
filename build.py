@@ -51,7 +51,6 @@ def loadDB():
             effect_str = ''
             for effect in effects:
                 effect_str += effect+'\n'
-            #    effect_str += trans(effect)+'\n'
             effect_str = cover(effect_str).rstrip("\n")
             if '選択肢なし' == opt_name or '選択肢無し' == opt_name:
                 count -= 1
@@ -95,6 +94,8 @@ def build():
         name = p["name"]
         charaName = p['charaName']
         rare = p['rare']
+        if rare is None or  rare == '':
+            rare = '3'
         events = p['eventList']
         eventsJSON = {}
         eventsList = list()
@@ -108,6 +109,8 @@ def build():
         name = s['name']
         charaName = s['charaName']
         rare = s['rare']
+        if rare is None or  rare == '':
+            rare = 'SSR'
         events = s['eventList']
         eventsJSON = {}
         eventsList = list()
@@ -117,8 +120,6 @@ def build():
             eventsList.append(raw_events[e_id])
         eventsJSON['Event'] = eventsList
         data['Support'][rare]['［'+name+'］'+charaName] = eventsJSON
-
-
 loadDB()
 build()
 saveData()
