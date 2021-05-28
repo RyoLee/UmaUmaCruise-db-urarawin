@@ -7,6 +7,7 @@ git config --global https.proxy 'socks5://192.168.1.200:7891'
 git config --global user.name "RyoLee"
 git pull
 dbl=$(cat ./dbl)
+curl -s https://purge.jsdelivr.net/gh/wrrwrr111/pretty-derby@master/src/assert/db.json
 res=$(curl -s -I -X HEAD https://cdn.jsdelivr.net/gh/wrrwrr111/pretty-derby@master/src/assert/db.json|grep content-length)
 if [ "$res"x = "x" ];then
     echo "[error]no content-length"
