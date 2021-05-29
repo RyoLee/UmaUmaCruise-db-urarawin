@@ -95,6 +95,8 @@ def build():
         name = p["name"]
         charaName = p['charaName']
         rare = p['rare']
+        if rare is None or  rare == '':
+            rare = '3'
         events = p['eventList']
         eventsJSON = {}
         eventsList = list()
@@ -108,6 +110,8 @@ def build():
         name = s['name']
         charaName = s['charaName']
         rare = s['rare']
+        if rare is None or  rare == '':
+            rare = 'SSR'
         events = s['eventList']
         eventsJSON = {}
         eventsList = list()
