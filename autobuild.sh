@@ -19,6 +19,7 @@ if [ "$dbl"x != $odbl"x" ];then
     sh ./build.sh
     echo "$odbl" > ./dbl
     curl -s https://purge.jsdelivr.net/gh/RyoLee/UmaUmaCruise-db-urarawin@master/UmaMusumeLibrary.json
+    curl -s https://purge.jsdelivr.net/gh/RyoLee/UmaUmaCruise-db-urarawin@master/SkillLibrary.json
 else
     echo "[info] no update"
 fi
