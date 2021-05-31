@@ -7,7 +7,7 @@ mv ./UmaMusumeLibrary.json ./UmaMusumeLibrary.json.old
 rm ./tmp/* -f
 chmod +x ./build.py
 wget https://cdn.jsdelivr.net/gh/wrrwrr111/pretty-derby@master/src/assert/db.json -O tmp/db.json
-#wget https://raw.githubusercontent.com/RyoLee/pretty-derby/master/src/assert/cn.json -O tmp/cn.json
+wget https://cdn.jsdelivr.net/gh/wrrwrr111/pretty-derby@master/src/assert/cn.json -O tmp/cn.json
 ./build.py
 count=$(diff UmaMusumeLibrary.json UmaMusumeLibrary.json.old |wc -l)
 if [ "0"x != "$count"x ];then

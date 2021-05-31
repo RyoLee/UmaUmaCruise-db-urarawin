@@ -8,6 +8,7 @@ raw_data = {}
 raw_events = {}
 trans_rules = {}
 rules = {}
+skill_effects = {}
 data = {
     "Charactor": {
         "☆3": {},
@@ -24,7 +25,8 @@ skills = {
     "Skill":{
         "ノーマル": [],
         "レア": [],
-        "固有": []
+        "固有": [],
+        "Buff": []
     }
 }
 
@@ -32,9 +34,10 @@ def loadDB():
     global raw_data
     global raw_events
     global trans_rules
+    global skill_effects
     global rules
-    #with open('./tmp/cn.json', 'r') as f:
-    #    trans_rules = json.load(f)
+    with open('./tmp/cn.json', 'r') as f:
+        trans_rules = json.load(f)
     with open('./rules.json', 'r') as f:
         rules = json.load(f)
     with open('./tmp/db.json', 'r') as f:
@@ -68,12 +71,14 @@ def loadDB():
             tmp["Effect"] = effect_str
             opts.append(tmp)
         if opts != None:
-#            if len(opts) > 3:
-#                opts = opts[0:2]
             p_event[name] = opts
             raw_events[id] = p_event
-
-
+    for skill_effect in raw_data['effects']:
+        id = skill_effect
+        name = raw_data['effects'][id]['name']
+        description = raw_data['effects'][id]['description']
+        description = cover(trans(description)).rstrip("\n")
+        skill_effects[id] = (name,description)
 def saveData():
     with open('./UmaMusumeLibrary.json', 'w') as f:
         json.dump(data, f, ensure_ascii=False)
@@ -84,8 +89,8 @@ def saveData():
 
 def trans(input):
     output = input
-    for k in trans_rules:
-        output = output.replace(k, trans_rules[k])
+    if output in trans_rules:
+        output = trans_rules[output]
     return output
 
 def cover(input):
@@ -130,12 +135,23 @@ def build():
         eventsJSON['Event'] = eventsList
         data['Support'][rare]['［'+name+'］'+charaName] = eventsJSON
     for skill in raw_data['skills']:
-        if not skill.__contains__('describe') or not skill.__contains__('name'):
+        if not 'describe' in skill or not 'name' in skill:
             continue
         item={}
         item['Name'] = cover(skill['name']).rstrip("\n")
-        item['Effect'] = cover(skill['describe']).rstrip("\n")
+        value_score = 'N/A'
+        if 'grade_value' in skill:
+            value_score = skill['grade_value']
+        item['Effect'] = cover(trans(skill['describe'])).rstrip("\n") + '\nScore:' + str(value_score)
         rare = skill['rare']
+        skills['Skill'][rare].append(item)
+    for buff in raw_data['buffs']:
+        if not 'describe' in skill or not 'name' in buff:
+            continue
+        item={}
+        item['Name'] = cover(buff['name']).rstrip("\n")
+        item['Effect'] = buff['describe'].rstrip("\n")
+        rare = 'Buff'
         skills['Skill'][rare].append(item)
 loadDB()
 build()
