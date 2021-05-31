@@ -20,7 +20,13 @@ data = {
         "R": {}
     }
 }
-
+skills = {
+    "Skill":{
+        "ノーマル": [],
+        "レア": [],
+        "固有": []
+    }
+}
 
 def loadDB():
     global raw_data
@@ -71,6 +77,9 @@ def loadDB():
 def saveData():
     with open('./UmaMusumeLibrary.json', 'w') as f:
         json.dump(data, f, ensure_ascii=False)
+    with open('./SkillLibrary.json', 'w') as f:
+        json.dump(skills, f, ensure_ascii=False)
+
 
 
 def trans(input):
@@ -120,6 +129,14 @@ def build():
             eventsList.append(raw_events[e_id])
         eventsJSON['Event'] = eventsList
         data['Support'][rare]['［'+name+'］'+charaName] = eventsJSON
+    for skill in raw_data['skills']:
+        if not skill.__contains__('describe') or not skill.__contains__('name'):
+            continue
+        item={}
+        item['Name'] = skill['name']
+        item['Effect'] = cover(skill['describe']).rstrip("\n")
+        rare = skill['rare']
+        skills['Skill'][rare].append(item)
 loadDB()
 build()
 saveData()
