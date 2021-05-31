@@ -133,7 +133,7 @@ def build():
         if not skill.__contains__('describe') or not skill.__contains__('name'):
             continue
         item={}
-        item['Name'] = skill['name']
+        item['Name'] = cover(skill['name']).rstrip("\n")
         item['Effect'] = cover(skill['describe']).rstrip("\n")
         rare = skill['rare']
         skills['Skill'][rare].append(item)
