@@ -19,10 +19,7 @@ data = {
         "SSR": {},
         "SR": {},
         "R": {}
-    }
-}
-skills = {
-    "Skill":{
+    },"Skill":{
         "ノーマル": [],
         "レア": [],
         "固有": [],
@@ -82,8 +79,6 @@ def loadDB():
 def saveData():
     with open('./UmaMusumeLibrary.json', 'w') as f:
         json.dump(data, f, ensure_ascii=False)
-    with open('./SkillLibrary.json', 'w') as f:
-        json.dump(skills, f, ensure_ascii=False)
 
 
 
@@ -144,7 +139,7 @@ def build():
             value_score = skill['grade_value']
         item['Effect'] = cover(trans(skill['describe'])).rstrip("\n") + '\nScore:' + str(value_score)
         rare = skill['rare']
-        skills['Skill'][rare].append(item)
+        data['Skill'][rare].append(item)
     for buff in raw_data['buffs']:
         if not 'describe' in skill or not 'name' in buff:
             continue
@@ -152,7 +147,7 @@ def build():
         item['Name'] = cover(buff['name']).rstrip("\n")
         item['Effect'] = buff['describe'].rstrip("\n")
         rare = 'Buff'
-        skills['Skill'][rare].append(item)
+        data['Skill'][rare].append(item)
 loadDB()
 build()
 saveData()
