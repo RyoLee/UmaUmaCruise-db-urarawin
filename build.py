@@ -77,6 +77,9 @@ def loadDB():
             if count == 0:
                 opts = None
                 break
+            for k in rules["addprefix"]:
+                if opt_name in k:
+                    effect_str = rules["addprefix"][k] + effect_str
             tmp = {}
             tmp["Option"] = opt_name
             tmp["Effect"] = effect_str
@@ -106,8 +109,8 @@ def trans(input):
 
 def cover(input):
     output = input
-    for k in rules:
-        output = output.replace(k, rules[k])
+    for k in rules["replace"]:
+        output = output.replace(k, rules["replace"][k])
     return output
 
 
