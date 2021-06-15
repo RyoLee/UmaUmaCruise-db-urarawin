@@ -3,13 +3,14 @@
 
 import sys
 import json
+import copy
 
 raw_data = {}
 raw_events = {}
 trans_rules = {}
 rules = {}
-skill_effects = {}
-data = {
+data_cn = {}
+data_jp = {
     "Charactor": {
         "☆3": {},
         "☆2": {},
@@ -45,7 +46,6 @@ def loadDB():
     global raw_data
     global raw_events
     global trans_rules
-    global skill_effects
     global rules
     with open('./tmp/cn.json', 'r') as f:
         trans_rules = json.load(f)
@@ -87,17 +87,13 @@ def loadDB():
         if opts != None:
             p_event[name] = opts
             raw_events[id] = p_event
-    for skill_effect in raw_data['effects']:
-        id = skill_effect
-        name = raw_data['effects'][id]['name']
-        description = raw_data['effects'][id]['description']
-        description = cover(trans(description)).rstrip("\n")
-        skill_effects[id] = (name, description)
 
 
 def saveData():
-    with open('./tmp/UmaMusumeLibrary.json', 'w') as f:
-        json.dump(data, f, ensure_ascii=False)
+    with open('./tmp/UmaMusumeLibrary.cn.json', 'w') as f:
+        json.dump(data_cn, f, ensure_ascii=False)
+    with open('./tmp/UmaMusumeLibrary.jp.json', 'w') as f:
+        json.dump(data_jp, f, ensure_ascii=False)
 
 
 def trans(input):
@@ -133,7 +129,7 @@ def build():
                 continue
             eventsList.append(raw_events[e_id])
         eventsJSON['Event'] = eventsList
-        data['Charactor'][p_rare[rare]]['['+name+']'+charaName] = eventsJSON
+        data_jp['Charactor'][p_rare[rare]]['['+name+']'+charaName] = eventsJSON
     # S cards
     for s in supports:
         name = s['name']
@@ -149,29 +145,16 @@ def build():
                 continue
             eventsList.append(raw_events[e_id])
         eventsJSON['Event'] = eventsList
-        data['Support'][rare]['［'+name+'］'+charaName] = eventsJSON
-    # skill effects
-    for skill in raw_data['skills']:
-        if not 'describe' in skill or not 'name' in skill:
-            continue
-        item = {}
-        item['Name'] = cover(skill['name']).rstrip("\n")
-        value_score = 'N/A'
-        if 'grade_value' in skill:
-            value_score = skill['grade_value']
-        item['Effect'] = cover(trans(skill['describe'])).rstrip(
-            "\n") + '\nScore:' + str(value_score)
-        rare = skill['rare']
-        data['Skill'][rare].append(item)
+        data_jp['Support'][rare]['［'+name+'］'+charaName] = eventsJSON
     # buff effects
     for buff in raw_data['buffs']:
-        if not 'describe' in skill or not 'name' in buff:
+        if not 'describe' in buff or not 'name' in buff:
             continue
         item = {}
         item['Name'] = cover(buff['name']).rstrip("\n")
         item['Effect'] = buff['describe'].rstrip("\n")
         rare = 'Buff'
-        data['Skill'][rare].append(item)
+        data_jp['Skill'][rare].append(item)
     # build races
     for race in raw_data['races']:
         rank = race['grade']
@@ -196,9 +179,28 @@ def build():
     # cover format
     for rank in races:
         for race in races[rank]:
-            if rank in data['Race']:
-                data['Race'][rank].append(races[rank][race])
-
+            if rank in data_jp['Race']:
+                data_jp['Race'][rank].append(races[rank][race])
+    # deepcoye
+    global data_cn
+    data_cn = copy.deepcopy(data_jp)
+    # skill effects
+    for skill in raw_data['skills']:
+        if not 'describe' in skill or not 'name' in skill:
+            continue
+        item_jp = {}
+        item_jp['Name'] = cover(skill['name']).rstrip("\n")
+        value_score = 'N/A'
+        if 'grade_value' in skill:
+            value_score = skill['grade_value']
+        item_cn = copy.deepcopy(item_jp)
+        item_jp['Effect'] = cover(skill['describe']).rstrip(
+            "\n") + '\nScore:' + str(value_score)
+        item_cn['Effect'] = cover(trans(skill['describe'])).rstrip(
+            "\n") + '\nScore:' + str(value_score)
+        rare = skill['rare']
+        data_cn['Skill'][rare].append(item_cn)
+        data_jp['Skill'][rare].append(item_jp)
 
 loadDB()
 build()
