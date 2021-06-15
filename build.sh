@@ -22,7 +22,7 @@ if [ "0"x != "$count"x ];then
     rm ./UmaMusumeLibrary.json
     cp ./UmaMusumeLibrary.json.new UmaMusumeLibrary.json
 fi
-if [ "0"x != "$count"x ];then
+if [ "0"x != "$countjp"x ];then
     rm ./UmaMusumeLibrary.jp.json
     cp ./UmaMusumeLibrary.jp.json.new UmaMusumeLibrary.jp.json
 fi
