@@ -19,6 +19,9 @@ if [[ "$?" -ne 0 ]]; then
     exit -1
 fi
 ./build.py
+if [[ "$?" -ne 0 ]]; then
+    exit -1
+fi
 cat tmp/UmaMusumeLibrary.cn.json | jq . >UmaMusumeLibrary.json.new
 cat tmp/UmaMusumeLibrary.jp.json | jq . >UmaMusumeLibrary.jp.json.new
 count=$(diff UmaMusumeLibrary.json UmaMusumeLibrary.json.new | wc -l)
