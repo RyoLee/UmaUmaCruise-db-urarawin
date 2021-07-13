@@ -116,7 +116,9 @@ def build():
     # P cards
     p_rare = {"3": "☆3", "2": "☆2", "1": "☆1"}
     for p in players:
-        name = p["name"]
+        name = p["name"]                           
+        if name is None or name == '':                    
+            name = '???'
         charaName = p['charaName']
         rare = p['rare']
         if rare is None or rare == '':
