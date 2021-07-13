@@ -22,6 +22,7 @@ if [ "$dbl"x != $odbl"x" ]; then
     fi
     echo "$odbl" >./dbl
     curl -s https://purge.jsdelivr.net/gh/RyoLee/UmaUmaCruise-db-urarawin@master/UmaMusumeLibrary.json
+    curl -s https://purge.jsdelivr.net/gh/RyoLee/UmaUmaCruise-db-urarawin@master/UmaMusumeLibrary.jp.json
 else
     echo "[info] no update"
 fi
