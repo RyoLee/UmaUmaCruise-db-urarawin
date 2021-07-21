@@ -10,11 +10,11 @@ rm ./tmp/* -f
 rm UmaMusumeLibrary.json.new -f
 rm UmaMusumeLibrary.jp.json.new -f
 chmod +x ./build.py
-wget https://cdn.jsdelivr.net/gh/wrrwrr111/pretty-derby@master/src/assert/db.json -O tmp/db.json
+wget https://raw.githubusercontents.com/wrrwrr111/pretty-derby/master/src/assert/db.json -O tmp/db.json
 if [[ "$?" -ne 0 ]]; then
     exit -1
 fi
-wget https://cdn.jsdelivr.net/gh/wrrwrr111/pretty-derby@master/src/assert/cn.json -O tmp/cn.json
+wget https://raw.githubusercontents.com/wrrwrr111/pretty-derby/master/src/assert/cn.json -O tmp/cn.json
 if [[ "$?" -ne 0 ]]; then
     exit -1
 fi

@@ -78,7 +78,7 @@ def loadDB():
                 opts = None
                 break
             for k in rules["addprefix"]:
-                if opt_name in k:
+                if k in opt_name:
                     effect_str = rules["addprefix"][k] + effect_str
             tmp = {}
             tmp["Option"] = opt_name
@@ -134,11 +134,13 @@ def build():
         data_jp['Charactor'][p_rare[rare]]['['+name+']'+charaName] = eventsJSON
     # S cards
     for s in supports:
-        name = s['name']
+        name = '???'
+        if 'name' in s:
+            name = s["name"]
         charaName = s['charaName']
-        rare = s['rare']
-        if rare is None or rare == '':
-            rare = 'SSR'
+        rare = 'SSR'
+        if 'rare' in s:
+            rare = s['rare']
         events = s['eventList']
         eventsJSON = {}
         eventsList = list()
