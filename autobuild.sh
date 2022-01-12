@@ -1,4 +1,5 @@
 #!/bin/sh
+cd $(dirname $0)
 git config --global user.email "516127941@qq.com"
 git config --global http.proxy 'socks5://192.168.1.20:7891'
 git config --global https.proxy 'socks5://192.168.1.20:7891'
