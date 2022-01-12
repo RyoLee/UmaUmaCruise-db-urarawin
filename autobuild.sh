@@ -1,6 +1,4 @@
 #!/bin/sh
-sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-apk add python3 jq
 git config --global user.email "516127941@qq.com"
 git config --global http.proxy 'socks5://192.168.1.20:7891'
 git config --global https.proxy 'socks5://192.168.1.20:7891'
