@@ -25,7 +25,7 @@ fi
 cat tmp/UmaMusumeLibrary.cn.json | jq . >UmaMusumeLibrary.json.new
 cat tmp/UmaMusumeLibrary.jp.json | jq . >UmaMusumeLibrary.jp.json.new
 count=$(diff UmaMusumeLibrary.json UmaMusumeLibrary.json.new | wc -l)
-countjp=$(diff UmaMusumeLibrary.json UmaMusumeLibrary.jp.json.new | wc -l)
+countjp=$(diff UmaMusumeLibrary.jp.json UmaMusumeLibrary.jp.json.new | wc -l)
 if [ "0"x != "$count"x ]; then
     date +%s >version
     rm ./UmaMusumeLibrary.json
