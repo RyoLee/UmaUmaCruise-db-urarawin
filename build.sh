@@ -30,10 +30,12 @@ if [ "0"x != "$count"x ]; then
     date +%s >version
     rm ./UmaMusumeLibrary.json
     cp ./UmaMusumeLibrary.json.new UmaMusumeLibrary.json
+    cat UmaMusumeLibrary.json | wc -c > UmaMusumeLibrary.json.ver
 fi
 if [ "0"x != "$countjp"x ]; then
     rm ./UmaMusumeLibrary.jp.json
     cp ./UmaMusumeLibrary.jp.json.new UmaMusumeLibrary.jp.json
+    cat UmaMusumeLibrary.jp.json | wc -c > UmaMusumeLibrary.jp.json.ver
 fi
 rm UmaMusumeLibrary.json.new -f
 rm UmaMusumeLibrary.jp.json.new -f
