@@ -1,7 +1,7 @@
 #!/bin/bash
 git config --global user.email "516127941@qq.com"
-git config --global http.proxy 'socks5://192.168.1.20:7891'
-git config --global https.proxy 'socks5://192.168.1.20:7891'
+git config --global http.proxy 'socks5://gw.lan:7891'
+git config --global https.proxy 'socks5://gw.lan:7891'
 git config --global user.name "RyoLee"
 git pull
 dbl=$(cat ./dbl)
