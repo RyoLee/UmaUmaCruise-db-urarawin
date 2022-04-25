@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 mkdir -p ./tmp
 if [ ! -e ../UmaMusumeLibrary.json ]; then
     touch ../UmaMusumeLibrary.json
