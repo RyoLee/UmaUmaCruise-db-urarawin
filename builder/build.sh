@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 mkdir -p ./tmp
 if [ ! -e ../UmaMusumeLibrary.json ]; then
     touch ../UmaMusumeLibrary.json
@@ -10,11 +10,11 @@ rm ./tmp/* -f
 rm ../UmaMusumeLibrary.json.new -f
 rm ../UmaMusumeLibrary.jp.json.new -f
 chmod +x ./build.py
-wget https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/db.json -O tmp/db.json
+wget -q https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/db.json -O tmp/db.json
 if [[ "$?" -ne 0 ]]; then
     exit -1
 fi
-wget https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/cn.json -O tmp/cn.json
+wget -q https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/cn.json -O tmp/cn.json
 if [[ "$?" -ne 0 ]]; then
     exit -1
 fi
