@@ -1,11 +1,6 @@
 #!/bin/bash
-git config --global user.email "516127941@qq.com"
-git config --global http.proxy 'socks5://sgw.lan:7891'
-git config --global https.proxy 'socks5://sgw.lan:7891'
-git config --global user.name "RyoLee"
-git pull
 dbl=$(cat ./dbl)
-res=$(curl -s -I -X HEAD https://raw.githubusercontents.com/wrrwrr111/pretty-derby/master/src/assert/db.json | grep content-length)
+res=$(curl -s -I -X HEAD https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/db.json | grep content-length)
 if [ "$res"x = "x" ]; then
     echo "[error]no content-length"
     exit 1
@@ -22,5 +17,3 @@ if [ "$dbl"x != $odbl"x" ]; then
 else
     echo "[info] no update"
 fi
-git commit -a -m "[autobuild] version:"$(cat version)
-git push

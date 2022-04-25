@@ -1,0 +1,23 @@
+name: Deploy
+
+on:
+  schedule:
+    - cron: "0/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+      - name: Run codes
+        run: |
+          cd builder
+          sh autobuild.sh
+      - name: Deploy
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "[autobuild]"
