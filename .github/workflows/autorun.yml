@@ -17,7 +17,7 @@ jobs:
         shell: bash
         run: |
           cd builder
-          /bin/bash autobuild.sh
+          /bin/bash build.sh
       - name: Deploy
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
