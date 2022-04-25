@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 dbl=$(cat ./dbl)
 res=$(curl -s -I -X HEAD https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/db.json | grep content-length)
 if [ "$res"x = "x" ]; then
