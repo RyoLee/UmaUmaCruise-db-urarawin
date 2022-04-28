@@ -15,7 +15,7 @@ build() {
     if [[ "$?" -ne 0 ]]; then
         exit -1
     fi
-    wget -q https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/cn.json -O tmp/cn.json
+    wget -q https://raw.githubusercontent.com/wrrwrr111/pretty-derby/master/src/assert/locales/zh_CN.json -O tmp/cn.json
     if [[ "$?" -ne 0 ]]; then
         exit -1
     fi
