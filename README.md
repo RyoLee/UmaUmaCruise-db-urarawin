@@ -1,8 +1,8 @@
 # UmaUmaCruise-db-urarawin
 
-A config builder for the UmaUmaCruise based on Python3
+A config builder for the UmaCruise-U based on Python3
 
-Get main program on [UmaUmaCruise](https://github.com/amate/UmaUmaCruise) (branch: original)
+~~Get main program on [UmaUmaCruise](https://github.com/amate/UmaUmaCruise) (branch: original)~~
 
 Or a customized version [UmaCruise-U](https://github.com/RyoLee/UmaCruise-U) (branch: master or original)
 
