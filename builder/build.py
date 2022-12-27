@@ -4,11 +4,13 @@
 import sys
 import json
 import copy
+import re
 
 raw_data = {}
 raw_events = {}
 trans_rules = {}
 rules = {}
+re_rules = {}
 data_cn = {}
 data_jp = {
     "Charactor": {
@@ -47,11 +49,13 @@ def loadDB():
     global raw_events
     global trans_rules
     global rules
-    with open('./tmp/cn.json', 'r') as f:
+    with open('./tmp/cn.json', 'r', encoding='utf-8') as f:
         trans_rules = json.load(f)
-    with open('./rules.json', 'r') as f:
-        rules = json.load(f)
-    with open('./tmp/db.json', 'r') as f:
+    with open('./rules.json', 'r', encoding='utf-8') as f:
+        rules = json.load(f, strict=False)
+        for k in rules["replace"]:
+            re_rules[k] = re.compile(rules["replace"][k], re.I)
+    with open('./tmp/db.json', 'r', encoding='utf-8') as f:
         raw_data = json.load(f)
     events = raw_data['events']
     for event in events:
@@ -90,9 +94,9 @@ def loadDB():
 
 
 def saveData():
-    with open('./tmp/UmaMusumeLibrary.cn.json', 'w') as f:
+    with open('./tmp/UmaMusumeLibrary.cn.json', 'w', encoding='utf-8') as f:
         json.dump(data_cn, f, ensure_ascii=False)
-    with open('./tmp/UmaMusumeLibrary.jp.json', 'w') as f:
+    with open('./tmp/UmaMusumeLibrary.jp.json', 'w', encoding='utf-8') as f:
         json.dump(data_jp, f, ensure_ascii=False)
 
 
@@ -105,8 +109,8 @@ def trans(input):
 
 def cover(input):
     output = input
-    for k in rules["replace"]:
-        output = output.replace(k, rules["replace"][k])
+    for k in re_rules:
+        output = re_rules[k].sub(k, output)
     return output
 
 
